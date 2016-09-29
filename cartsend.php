@@ -11,11 +11,50 @@ class plgDroideformsCartSend extends JPlugin{
 
   }
 
+  public function getListProduct()
+{
+  $app = JFactory::getApplication();
+  $input = $app->input->cookie;
+  $droidecart = $input->get('droide-cart','{}', $filter = 'string');
+  $arraycart = json_decode($droidecart,true);
+
+  $items_id = array_keys($arraycart);
+  $results = [];
+  if($items_id){
+    $items_id = implode(',',$items_id);
+    $db = JFactory::getDbo();
+    $query = $db->getQuery(true);
+    $query->select(array('id', 'title'));
+    $query->from('#__k2_items');
+    $query->where('id in('.$items_id.')');
+    $db->setQuery($query);
+     $getBD = $db->loadObjectList();
+
+     foreach ($getBD as $k => $k2item) {
+       $results[] = [
+         'id'=>$k2item->id,
+         'title'=>$k2item->title,
+         'qtde'=>$arraycart[$k2item->id],
+       ];
+     }
+
+  }
+
+  return $results;
+}
+
+public function ClearCookie()
+{
+  $app = JFactory::getApplication();
+  $cookies = $app->input->cookie;
+  $cookies->set('droide-cart', null, time() - 1);
+}
+
   public function onDroideformsBeforePublisheLayout(&$module, &$layout, &$post, &$log)
   {
     JLoader::register('helperUno', JPATH_LIBRARIES . '/helperuno.php');
     $HelperItens = new helperUno();
-    $produtos = $HelperItens->getListProduct();
+    $produtos = $this->getListProduct();
     $concatProdutcs = "";
     if($produtos){
       $concatProdutcs = $this->getLayoutTableTop();
@@ -24,7 +63,7 @@ class plgDroideformsCartSend extends JPlugin{
       }
       $concatProdutcs .= $this->getLayoutTableBottom();
       $layout .= $concatProdutcs;
-      $HelperItens->ClearCookie();
+      $this->ClearCookie();
     }
 
   }
