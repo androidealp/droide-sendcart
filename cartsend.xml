@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE extension>
+<extension version="3.0" type="plugin" group="droideforms" method="upgrade">
+	<name>Plugin enviar dados do carrinho</name>
+	<version>1.0</version>
+	<creationDate>2016-09-29</creationDate>
+	<author>André Luiz</author>
+	<authorEmail>and4563@gmail.com</authorEmail>
+	<authorUrl>http://www.next4.com.br</authorUrl>
+	<copyright>www.next4.com.br</copyright>
+	<license>GNU/GPLv3 or later</license>
+	<description>Efetua o envido dos dados que estão no carrinho</description>
+	<files>
+		<filename plugin="cartsend">cartsend.php</filename>
+	</files>
+	<config>
+        <fields name="params">
+            <fieldset name="basic">
+
+            </fieldset>
+        </fields>
+    </config>
+</extension>
