@@ -52,8 +52,6 @@ public function ClearCookie()
 
   public function onDroideformsBeforePublisheLayout(&$module, &$layout, &$post, &$log)
   {
-    JLoader::register('helperUno', JPATH_LIBRARIES . '/helperuno.php');
-    $HelperItens = new helperUno();
     $produtos = $this->getListProduct();
     $concatProdutcs = "";
     if($produtos){
