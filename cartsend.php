@@ -53,14 +53,14 @@ public function ClearCookie()
   public function onDroideformsBeforePublisheLayout(&$module, &$layout, &$post, &$log)
   {
     $produtos = $this->getListProduct();
-    $concatProdutcs = "";
+    $concatProducts = "";
     if($produtos){
-      $concatProdutcs = $this->getLayoutTableTop();
+      $concatProducts = $this->getLayoutTableTop();
       foreach ($produtos as $k => $produto) {
-        $concatProdutcs .= "<tr><td>{$produto['title']}</td><td style='text-align:center;'>{$produto['qtde']}</td></tr>";
+        $concatProducts .= "<tr><td>{$produto['title']}</td><td style='text-align:center;'>{$produto['qtde']}</td></tr>";
       }
-      $concatProdutcs .= $this->getLayoutTableBottom();
-      $layout .= $concatProdutcs;
+      $concatProducts .= $this->getLayoutTableBottom();
+      $layout .= $concatProducts;
       $this->ClearCookie();
     }
 
